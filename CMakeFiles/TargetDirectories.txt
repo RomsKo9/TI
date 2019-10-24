@@ -1,3 +1,0 @@
-/mnt/c/Users/testo/Desktop/Polytech/5A/TI/TI_project_1/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/testo/Desktop/Polytech/5A/TI/TI_project_1/CMakeFiles/lectureImage.dir
-/mnt/c/Users/testo/Desktop/Polytech/5A/TI/TI_project_1/CMakeFiles/edit_cache.dir
