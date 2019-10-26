@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+// Création d'un structure représentant un fragment
 struct Fragment
 {
   int id;
@@ -17,6 +18,7 @@ int main(int argc, char** argv){
   std::list<Fragment> listFragments;
   std::ifstream fragmentsFile("./ressources/fragments.txt");
 
+  // On crée des objets fragment à partir de fichier de données .txt
   while(std::getline(fragmentsFile, line))
   {
     Fragment frag = {};
@@ -24,8 +26,10 @@ int main(int argc, char** argv){
     listFragments.push_back(frag);
   }
 
+  // On crée une matrice vierge qui va par la suite accueuillir nos fragments
   cv::Mat res(775,1707,CV_8UC4, cv::Scalar(255,255,255,255));
 
+  // On place correctement les fragments, puis on recopie pixel par pixel sur la matrice vierge
   for(Fragment frag : listFragments)
   {
     std::string pathFragment = "./ressources/frag_eroded/frag_eroded/frag_eroded_";
@@ -49,6 +53,7 @@ int main(int argc, char** argv){
     }
   }
 
+  // On affiche la matrice resultat contenant tous les fragments correctement placés
   cv::imshow("Result",res);
 	cv::waitKey(0);
 

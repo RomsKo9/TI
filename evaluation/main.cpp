@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdlib.h>
 
+// Création d'un structure représentant un fragment
 struct Fragment
 {
   int id;
@@ -13,6 +14,7 @@ struct Fragment
   float size;
 };
 
+// Méthode permettant de calculer la taille d'un fragment
 int calculFragSize(cv::Mat matFrag)
 {
   return matFrag.size().height*matFrag.size().width;
@@ -32,9 +34,11 @@ int main(int argc, char** argv){
   int nbFragOK = 0;
   int nbFragOutFresque = 0;
   float precision = 0;
+  int nbFragManquant = 0;
 
   std::string pathFragment = "./ressources/frag_eroded/frag_eroded/frag_eroded_";
 
+  // On crée des objets fragment à partir de fichier de données .txt
   while(std::getline(fragmentsFile, line))
   {
     Fragment frag = {};
@@ -53,7 +57,7 @@ int main(int argc, char** argv){
     listSolutions.push_back(frag);
   }
 
-
+  // Parcours pour trouver le nombre de fragments Correctement placés
   for(Fragment frag : listFragments)
   {
 
@@ -71,6 +75,7 @@ int main(int argc, char** argv){
     }
   }
 
+  // Parcours pour trouver le nombre de fragments mals placés
   for(Fragment fragSol : listSolutions)
   {
     bool trouve = false;
@@ -89,10 +94,15 @@ int main(int argc, char** argv){
     }
   }
 
+  // Calcul de l'estimation de qualité
   precision = (float)(fragSizeInFresque-fragSizeOutFresque)/(float)fragSizeTotalFresque;
 
+  // Calcul du nombre de fragment(s) manquant(s)
+  nbFragManquant = listFragments.size() - listSolutions.size();
+
   std::cout << "Fragments Correctement placés : "<<nbFragOK<<" -- Taille : "<<fragSizeInFresque << '\n';
-  std::cout << "Fragments Mal Placés : "<<nbFragOutFresque<<" -- Taille : "<<fragSizeOutFresque << '\n';
+  std::cout << "Fragments Mals Placés : "<<nbFragOutFresque<<" -- Taille : "<<fragSizeOutFresque << '\n';
+  std::cout << "Fragments Manquants : "<<nbFragManquant<< '\n';
   std::cout << "Taille total des fragments de la Fresque :  "<<fragSizeTotalFresque << '\n';
   std::cout << "Précision : "<<precision*100.<<"%" << '\n';
 
